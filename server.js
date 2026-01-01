@@ -16,7 +16,7 @@ app.use(cors({
     // when you go live (e.g., 'https://yourportfolio.netlify.app'). 
     // For local development, this allows your React frontend (port 5173/3000) 
     // to talk to your backend (port 5000).
-    origin: 'https://pragatikumawat.github.io/unique_website/' 
+    origin: 'http://localhost:5173' 
 }));
 app.use(express.json()); // Allows parsing of JSON request bodies
 
