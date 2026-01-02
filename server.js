@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
+//const nodemailer = require('nodemailer');
 // attractive_portfolio_backend/server.js
 
 // Add Mongoose at the top
@@ -52,15 +52,15 @@ app.use(cors({
 
 // --- 2. Middleware ---
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-const sgTransport = require('nodemailer-sendgrid-transport');
-// --- 3. Nodemailer Transporter Setup ---
-// Uses credentials securely stored as environment variables on Render (EMAIL_USER, EMAIL_PASS)
-const transporter = nodemailer.createTransport(sgTransport({
-    auth: {
-        api_key: process.env.SENDGRID_API_KEY // Use the new variable
-    }
-})); 
+// app.use(bodyParser.urlencoded({ extended: true }));
+// const sgTransport = require('nodemailer-sendgrid-transport');
+// // --- 3. Nodemailer Transporter Setup ---
+// // Uses credentials securely stored as environment variables on Render (EMAIL_USER, EMAIL_PASS)
+// const transporter = nodemailer.createTransport(sgTransport({
+//     auth: {
+//         api_key: process.env.SENDGRID_API_KEY // Use the new variable
+//     }
+// })); 
 // --- 4. Contact Form API Route ---
 app.post('/api/contact', async (req, res) => {
     const { name, email, message } = req.body;
