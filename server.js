@@ -57,13 +57,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // --- 3. Nodemailer Transporter Setup ---
 // Uses credentials securely stored as environment variables on Render (EMAIL_USER, EMAIL_PASS)
 const transporter = nodemailer.createTransport({
-    service: 'gmail', // Use your email provider here (e.g., 'outlook', 'yahoo')
+    // DO NOT use 'service: "gmail"' here!
+    host: 'smtp.gmail.com', 
+    port: 587, // Use 587 with secure: false for STARTTLS
+    secure: false, // Must be false for port 587
+    requireTLS: true, // IMPORTANT for 587 to force encryption
     auth: {
         user: process.env.EMAIL_USER, 
         pass: process.env.EMAIL_PASS, 
     },
 });
-
 // --- 4. Contact Form API Route ---
 app.post('/api/contact', async (req, res) => {
     const { name, email, message } = req.body;
