@@ -53,20 +53,14 @@ app.use(cors({
 // --- 2. Middleware ---
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+const sgTransport = require('nodemailer-sendgrid-transport');
 // --- 3. Nodemailer Transporter Setup ---
 // Uses credentials securely stored as environment variables on Render (EMAIL_USER, EMAIL_PASS)
-const transporter = nodemailer.createTransport({
-    // DO NOT use 'service: "gmail"' here!
-    host: 'smtp.gmail.com', 
-    port: 587, // Use 587 with secure: false for STARTTLS
-    secure: false, // Must be false for port 587
-    requireTLS: true, // IMPORTANT for 587 to force encryption
+const transporter = nodemailer.createTransport(sgTransport({
     auth: {
-        user: process.env.EMAIL_USER, 
-        pass: process.env.EMAIL_PASS, 
-    },
-});
+        api_key: process.env.SENDGRID_API_KEY // Use the new variable
+    }
+})); 
 // --- 4. Contact Form API Route ---
 app.post('/api/contact', async (req, res) => {
     const { name, email, message } = req.body;
