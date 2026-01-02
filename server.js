@@ -3,6 +3,33 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
+// attractive_portfolio_backend/server.js
+
+// Add Mongoose at the top
+const mongoose = require('mongoose');
+const Contact = require('./models/Contact');
+// ... rest of the required modules (express, bodyParser, cors, etc.)
+
+// --- NEW: MongoDB Connection Setup ---
+// The connection string will be saved securely on Render.
+const MONGO_URI = process.env.MONGO_URI; 
+
+mongoose.connect(MONGO_URI)
+    .then(() => console.log('✅ MongoDB connected successfully.'))
+    .catch(err => {
+        console.error('❌ MongoDB connection error:', err);
+        // Optional: Exit the process if the database connection fails
+        // process.exit(1); 
+    });
+
+// --- 3. Nodemailer Transporter Setup (Keep this section) ---
+// ...
+
+// --- 4. Contact Form API Route (We'll update this next) ---
+// ...
+
+// --- 6. Start the Server ---
+
 
 // Load environment variables from .env file for local development
 // We use process.env.NODE_ENV === 'production' to handle live credentials on Render
@@ -61,6 +88,11 @@ app.post('/api/contact', async (req, res) => {
     };
 
     try {
+
+        // --- NEW: Save to MongoDB ---
+        const newContact = new Contact({ name, email, message });
+        await newContact.save();
+      
         await transporter.sendMail(mailOptions);
         console.log('Email sent successfully to:', process.env.EMAIL_USER);
         res.status(200).json({ message: 'Message sent successfully!' });
