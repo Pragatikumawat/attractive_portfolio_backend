@@ -89,7 +89,7 @@ app.post('/api/contact', async (req, res) => {
         const newContact = new Contact({ name, email, message });
         await newContact.save();
       
-        await transporter.sendMail(mailOptions);
+        // await transporter.sendMail(mailOptions);
         console.log('Email sent successfully to:', process.env.EMAIL_USER);
         res.status(200).json({ message: 'Message sent successfully!' });
     } catch (error) {
