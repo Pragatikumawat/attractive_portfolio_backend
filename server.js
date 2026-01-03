@@ -14,8 +14,6 @@ const bcrypt = require('bcryptjs');   // <--- NEW: For future login logic
 // attractive_portfolio_backend/server.js
 // server.js (near your other require statements)
 // ...
-const jwt = require('jsonwebtoken');   
-const bcrypt = require('bcryptjs');   
 const auth = require('./middleware/auth'); // <--- NEW IMPORT!
 // ...
 // Add Mongoose at the top
