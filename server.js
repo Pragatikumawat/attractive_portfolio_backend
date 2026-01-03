@@ -18,7 +18,6 @@ const auth = require('./middleware/auth'); // <--- NEW IMPORT!
 // ...
 // Add Mongoose at the top
 const mongoose = require('mongoose');
-const Contact = require('./models/Contact');
 // ... rest of the required modules (express, bodyParser, cors, etc.)
 
 // --- NEW: MongoDB Connection Setup ---
