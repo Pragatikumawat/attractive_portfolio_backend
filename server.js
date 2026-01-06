@@ -1,5 +1,7 @@
+// 1. Import and call the config function immediately
+require('dotenv').config();
 
-// server.js
+// (Your other require statements will follow here, e.g., const express = require('express');)// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -81,7 +83,7 @@ app.post('/api/contact', async (req, res) => {
 
     // Configure the email content
     const mailOptions = {
-        from: process.env.EMAIL_USER, // Sender address
+        from: process.env.EMAIL_USERS, // Sender address
         to: process.env.EMAIL_USER,   // Receiver address (your email)
         subject: `New Portfolio Contact from ${name}`, // Subject line
         html: `
@@ -261,38 +263,6 @@ app.post('/api/logout', (req, res) => {
     res.status(200).json({ msg: 'Logged out successfully.' });
 });
 // server.js (New protected route for admin to view all contacts)
-
-app.get('/api/contacts', auth, async (req, res) => {
-    try {
-        // 1. Find all contact documents in the database
-        const contacts = await Contact.find().sort({ date: -1 });
-        // We added .sort({ date: -1 }) to show the newest contacts first.
-
-        // 2. Send the array of contacts back to the client
-        res.json(contacts);
-// 1. Get the user ID from the verified token
-        const userId = req.user.id; 
-
-        // 2. Fetch the user's document to check their role
-        const user = await User.findById(userId);
-
-        // 3. The crucial check: Is the user an admin?
-        if (!user.isAdmin) {
-            // ... What status code should we send if they are NOT authorized?
-
-            return res.status(403).json({ 
-                msg: 'Access forbidden. Administrator privileges required.' 
-            });
-        }
-        // 4. If they ARE an admin, proceed to fetch all contacts
-        // const contacts = await Contact.find().sort({ date: -1 });
-        // res.json(contacts);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
-    }
-});
-
 app.get('/api/contacts', auth, async (req, res) => {
     try {
         // 1. Fetch the user's document using the ID from the token
