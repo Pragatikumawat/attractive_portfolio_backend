@@ -83,7 +83,7 @@ app.post('/api/contact', async (req, res) => {
 
     // Configure the email content
     const mailOptions = {
-        from: process.env.EMAIL_USERS, // Sender address
+        from: process.env.EMAIL_USER, // Sender address
         to: process.env.EMAIL_USER,   // Receiver address (your email)
         subject: `New Portfolio Contact from ${name}`, // Subject line
         html: `
