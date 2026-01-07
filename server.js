@@ -1,3 +1,6 @@
+import CORS from 'cors';
+
+
 // 1. Import and call the config function immediately
 require('dotenv').config();
 
@@ -57,7 +60,7 @@ const PORT = process.env.PORT || 10000;
 // and the specific URL of the deployed GitHub Pages site.
 
 // 🔑 IMPORTANT: Replace with your actual GitHub Pages URL
-const FRONTEND_URL = 'https://pragatikumawat.github.io'; // <-- CRITICAL FIX: Removed /unique_website
+const FRONTEND_URL = 'https://pragatikumawat.github.io/unique_website/';
 app.use(cors({
     origin: process.env.NODE_ENV === 'production' ? FRONTEND_URL : 'http://localhost:5173'
 }));
